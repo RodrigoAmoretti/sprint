@@ -19,6 +19,7 @@ const conexion = mysql.createConnection({
 
 
 
+
 console.log();
 
 
@@ -43,10 +44,17 @@ app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 app.get('/', (req, res, next) =>{
-    res.render('index', {
-        style:'styles.css'
+    let sql ='SELECT * FROM trabajopp';
+
+     conexion.query(sql, (err, result) => {
+     if (err) throw err;
+     res.render('index',{
+        titulo: 'formulario para productos',
+        results: result,
+        
     })
 });
+
 
 app.get('/page', (req,res) =>{
     
@@ -60,7 +68,27 @@ app.get('/page', (req,res) =>{
 
 });
 
+// app.get('/', (req,res) =>{
+    
+     
+//     let sql ='SELECT * FROM trabajopp';
 
+//      conexion.query(sql, (err, result) => {
+//      if (err) throw err;
+//      res.render('index',{
+//         titulo: 'formulario para productos',
+//         results: result,
+//     });
+//   });
+
+
+
+//  });
+// app.get('/', (req,res) =>{
+// res.render('index',{
+// titulo: 'formulario para productos',
+//      });
+ });
 
 app.listen(PORT, () => {
     console.log(`el servidor esta funcionando en el puerto ${PORT}`)
@@ -104,13 +132,22 @@ app.listen(PORT, () => {
             if (err) throw err;
             return
           });
+
+
+         
  
-        res.send(`Datos recibidos: producto: ${producto} precio: ${precio}`); 
-        
+        // res.send(`Datos recibidos: producto: ${producto} precio: ${precio}`); 
+       
  });
      
 
+
+
         
+
+
+
+
 
 
 
